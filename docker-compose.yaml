@@ -1,0 +1,35 @@
+version: '3.9'
+
+#eureka-naming-server          : 8761
+#config-server                 : 8888
+#api-gaetway-server            : 8765
+#my-sql-server                 : 3306
+#record-user-swipes-server     : 8080
+#process-user-swipes-server    : 8081
+#kafka-listener-swipes-server  : 8082
+#zookeeper-server              : 2181
+#kafka-server                  : 9092
+#prometheus-server             : 9090
+#grafana-server                : 3000
+
+services:
+    eureka-naming-server:
+        build:
+            context: ./EurekaServer_Microservice
+            dockerfile: Dockerfile
+        image: nikbik/eureka_server_image:latest
+        container_name: eureka_container
+        mem_limit: 700m
+        ports:
+            - "8761:8761"
+        restart: always
+        networks:
+            - nikbik-network
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:8761"]
+            interval: 15s
+            timeout: 10s
+            retries: 5
+                       
+networks:
+    nikbik-network:

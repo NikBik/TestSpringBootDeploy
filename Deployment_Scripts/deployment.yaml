@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-naming-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eureka-naming-server
+  template:
+    metadata:
+      labels:
+        app: eureka-naming-server
+    spec:
+      containers:
+        - name: eureka-naming-server
+          image: nikbik/eureka_server_image:latest
+          resources:
+            limits:
+                memory: "700Mi"
+          ports:
+            - containerPort: 8761
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8761
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 5
