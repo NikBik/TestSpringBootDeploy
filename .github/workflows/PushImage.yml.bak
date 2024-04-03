@@ -4,7 +4,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-    - Attendance_MS_Automating_Workflows_25_Mar  # Replace this with your default branch if not 'main'
+    - main
 
 
 jobs:
